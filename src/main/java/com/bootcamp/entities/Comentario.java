@@ -3,10 +3,13 @@ package com.bootcamp.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -37,6 +40,7 @@ public class Comentario implements Serializable {
 
     // Usuario que hace el comentario
     @NotEmpty(message = "El campo usuario no puede estar vacío.")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "usuario")
     private String usuario;
 
     // Pizza sobre la que se hace el comentario
