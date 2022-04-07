@@ -1,11 +1,15 @@
 package com.bootcamp.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -38,6 +42,9 @@ public class Usuario implements Serializable {
     @NotEmpty(message = "El campo password no puede estar vacío.")
     @Size(min = 8, max = 255, message = "El campo password debe tener entre 8 y 255 caracteres.")
     private String passwd;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "usuario")
+    private List<Comentario> comentarios;
 
     public Usuario() {
         super();
