@@ -1,6 +1,8 @@
 package com.bootcamp.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,7 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -30,11 +32,11 @@ public class Ingrediente implements Serializable {
     // Atributo precio del ingrediente con limitaciones
     @NotEmpty(message = "El campo precio no puede estar vacío.")
     @Min(value = 0, message = "El precio no puede ser negativo.")
-    private double precio;
+    private BigDecimal precio;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @NotNull(message = "Ingrediente debe tener una pizza.")
-    private Pizza pizza;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @NotNull(message = "Los ingredientes deben Estar en una pizza.")
+    private List<Pizza> pizza;
 
     public Ingrediente() {
         super();
@@ -42,16 +44,8 @@ public class Ingrediente implements Serializable {
 
     public Ingrediente(long id,
             @NotEmpty(message = "El campo nombre no puede estar vacío.") @Size(min = 3, max = 255, message = "El campo nombre debe tener entre 3 y 255 caracteres.") String nombre,
-            @NotEmpty(message = "El campo precio no puede estar vacío.") @Min(value = 0, message = "El precio no puede ser negativo.") double precio) {
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-    }
-
-    public Ingrediente(long id,
-            @NotEmpty(message = "El campo nombre no puede estar vacío.") @Size(min = 3, max = 255, message = "El campo nombre debe tener entre 3 y 255 caracteres.") String nombre,
-            @NotEmpty(message = "El campo precio no puede estar vacío.") @Min(value = 0, message = "El precio no puede ser negativo.") double precio,
-            @NotNull(message = "Ingrediente debe tener una pizza.") Pizza pizza) {
+            @NotEmpty(message = "El campo precio no puede estar vacío.") @Min(value = 0, message = "El precio no puede ser negativo.") BigDecimal precio,
+            @NotNull(message = "Los ingredientes deben Estar en una pizza.") List<Pizza> pizza) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -74,19 +68,19 @@ public class Ingrediente implements Serializable {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
-    public Pizza getPizza() {
+    public List<Pizza> getPizza() {
         return pizza;
     }
 
-    public void setPizza(Pizza pizza) {
+    public void setPizza(List<Pizza> pizza) {
         this.pizza = pizza;
     }
 
