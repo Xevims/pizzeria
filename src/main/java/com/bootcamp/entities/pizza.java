@@ -35,7 +35,7 @@ public class Pizza implements Serializable {
 
     // Ingredientes
     @NotEmpty(message = "Una pizza debe tener ingredientes.")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "pizza")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "pizza")
     private List<Ingrediente> ingredientes;
 
     // Atributo precio de la pizza con limitaciones
@@ -44,7 +44,7 @@ public class Pizza implements Serializable {
     private BigDecimal precio;
 
     // Comentarios
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "pizza")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "pizza")
     private List<Comentario> comentarios;
 
     public Pizza() {

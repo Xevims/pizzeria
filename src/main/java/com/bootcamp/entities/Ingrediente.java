@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,7 +33,7 @@ public class Ingrediente implements Serializable {
     @Min(value = 0, message = "El precio no puede ser negativo.")
     private BigDecimal precio;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER)
     @NotNull(message = "Los ingredientes deben Estar en una pizza.")
     private List<Pizza> pizza;
 
